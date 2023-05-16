@@ -1,3 +1,18 @@
+
+import 'package:flutter/material.dart';
+import 'package:onesec/background_services/background_services.dart';
+
+import 'onesec_app.dart';
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await BackgroundServices.initializeService();
+  runApp(const OneSec());
+}
+
+
+
+
+/*
 import 'dart:async';
 import 'dart:developer';
 
@@ -103,3 +118,4 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+*/
