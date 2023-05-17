@@ -1,17 +1,56 @@
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:onesec/background_services/background_services.dart';
+import 'package:onesec/screens/over_lay.dart';
 
 import 'onesec_app.dart';
-void main()async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await BackgroundServices.initializeService();
   runApp(const OneSec());
 }
 
+@pragma("vm:entry-point")
+void overlayMain() {
+  log("over lay is running");
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:OverLayWindow() /*Material(
+        child: Material(
+            child: Container(
+                height: 200,
+                width: 200,
+                //padding: EdgeInsets.all(50),
+                // margin: EdgeInsets.all(50),
+                color: Colors.red,
+                child: const Center(child: Text("My overlay body")))),
+      )*/));
+}
+/*
 
+class OverLayWindow extends StatelessWidget {
+  const OverLayWindow({Key? key}) : super(key: key);
 
-
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Scaffold(
+        appBar: AppBar(title: const Text("over lay screen title")),
+        body: Material(
+            child: Container(
+                height: 200,
+                width: 200,
+                //padding: EdgeInsets.all(50),
+                // margin: EdgeInsets.all(50),
+                color: Colors.red,
+                child: const Center(child: Text("My overlay body")))),
+      ),
+    );
+  }
+}*/
 /*
 import 'dart:async';
 import 'dart:developer';

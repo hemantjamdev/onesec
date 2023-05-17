@@ -31,14 +31,14 @@ class BackgroundServices {
       service.on("stopSelf").listen((event) {
         service.stopSelf();
       });
-      Timer.periodic(const Duration(seconds: 1), (timer) async {
+      /*Timer.periodic(const Duration(seconds: 1), (timer) async {
         // if () {
         service.setForegroundNotificationInfo(
-          title: "hemant service",
-          content: "updating at every 2 second ${DateTime.now()}",
+          title: "bg service",
+          content: "updating at every second ${DateTime.now()}",
         );
-        log("-----> running <------");
-      });
+       // log("-----> running <------");
+      });*/
     }
   }
 }
