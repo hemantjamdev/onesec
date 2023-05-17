@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:installed_apps/app_info.dart';
 import 'package:installed_apps/installed_apps.dart';
+import 'package:usage_stats/usage_stats.dart';
 
 class InstallAppsList extends StatefulWidget {
   const InstallAppsList({Key? key}) : super(key: key);
@@ -21,6 +21,28 @@ class _InstallAppsListState extends State<InstallAppsList> {
     setState(() {});
   }
 
+  getUsageForApp() async {
+    DateTime endDate = DateTime.now();
+    DateTime startDate = endDate.subtract(const Duration(minutes: 3));
+
+    Map<String, UsageInfo> appIds =
+        await UsageStats.queryAndAggregateUsageStats(startDate, endDate);
+    log("-------length before --------");
+    log(appIds.length.toString());
+    List<String> keys = appIds.keys.toList();
+    for (String id in keys) {
+      for (var element in selectedApps) {
+        if (id != element.packageName) {
+          appIds.remove(id);
+        } else {
+          log("------added this id $id----");
+        }
+      }
+    }
+    log("-------length after --------");
+    log(appIds.length.toString());
+  }
+
   @override
   void initState() {
     getApps();
@@ -33,18 +55,16 @@ class _InstallAppsListState extends State<InstallAppsList> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () async {
-          log("----> fab called <----");
+          getUsageForApp();
+          /* log("----> fab called <----");
           if (await FlutterOverlayWindow.isActive()) {
             log("----> if condition <----");
             FlutterOverlayWindow.closeOverlay();
           } else {
             log("----> else condition <----");
             FlutterOverlayWindow.showOverlay(
-              //height: 200,
-               // width: 200,
-                overlayContent: "this is  the context",enableDrag: true
-            );
-          }
+                overlayContent: "this is  the context", enableDrag: true);
+          }*/
         },
       ),
       body: ListView.builder(

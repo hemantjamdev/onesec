@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
-import 'package:onesec/screens/usage_info.dart';
 import 'package:usage_stats/usage_stats.dart';
 
 import 'app_list.dart';
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List<UsageInfo> usageStats = [];
 
   getUsage() async {
-    DateTime endDate = new DateTime.now();
+    DateTime endDate = DateTime.now();
     DateTime startDate =
         DateTime(endDate.year, endDate.month, endDate.day, 0, 0, 0);
 
@@ -33,6 +32,18 @@ class _HomePageState extends State<HomePage> {
     usageStats = await UsageStats.queryUsageStats(startDate, endDate);
   }
 
+  getUsageForApp() async {
+    DateTime endDate = DateTime.now();
+    DateTime startDate = endDate.subtract(const Duration(minutes: 2));
+
+    Map<String, UsageInfo> app =
+        await UsageStats.queryAndAggregateUsageStats(startDate, endDate);
+    app.keys.toList().contains("com.android.chrome")
+        ? log("yyyyaayyyy")
+        : log("nopeeeeeee");
+
+  }
+
   checkPermission() async {
     await FlutterOverlayWindow.isPermissionGranted()
         ? null
@@ -42,7 +53,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     checkPermission();
-
     super.initState();
     getUsage();
   }
@@ -50,8 +60,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          getUsageForApp();
+        },
+      ),*/
       appBar: AppBar(title: const Text("Home page")),
-      body: InstallAppsList(),
+      body: const InstallAppsList(),
     );
   }
 }

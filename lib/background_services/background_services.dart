@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter_background_service/flutter_background_service.dart';
 // ignore: depend_on_referenced_packages

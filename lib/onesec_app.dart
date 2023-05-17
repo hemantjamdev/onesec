@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onesec/screens/splash.dart';
 
-import 'screens/home_page.dart';
 
 class OneSec extends StatelessWidget {
   const OneSec({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class OneSec extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: Splash(),
     );
   }
 }
